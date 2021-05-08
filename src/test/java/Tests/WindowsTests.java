@@ -1,5 +1,6 @@
 package Tests;
 
+import Base.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -14,16 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class WindowsTests {
-    public WebDriver driver;
+public class WindowsTests extends BaseTest {
 
     @Test
     public void Windows(){
-        System.setProperty("webdriver.chrome.driver","C:\\Automation\\chromedriver.exe");
-        driver=new ChromeDriver();
-        driver.get("http://demo.automationtesting.in/Register.html");
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         String ExpectedRegisterPageTitle="Register";
         String ActualRegisterPageTitle=driver.getTitle();

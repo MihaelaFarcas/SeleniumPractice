@@ -1,5 +1,6 @@
 package Tests;
 
+import Base.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -11,23 +12,12 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class RegisterTest {
+public class RegisterTest extends BaseTest {
     //Declaram o variabila WebDriver
-    public WebDriver driver;
+
 
     @Test
-
     public void Register(){
-        //Setam driverul de Chrome. Cum se numeste browserul, path-ul cu driverul salvat si cum se numeste.
-        System.setProperty("webdriver.chrome.driver","C:\\Automation\\chromedriver.exe");
-
-        //Deschidem un browser de Chrome
-        driver=new ChromeDriver();
-
-        //Accesam un URL
-        driver.get("http://demo.automationtesting.in/Register.html");
-        //Intra in modul maximize
-        driver.manage().window().maximize();
         //Facem refresh la pagina
         //driver.navigate().refresh();
         //Validam pagina pe care ne aflam

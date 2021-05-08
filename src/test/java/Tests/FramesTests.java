@@ -1,5 +1,6 @@
 package Tests;
 
+import Base.BaseTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -13,19 +14,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class FramesTests {
+public class FramesTests extends BaseTest {
 
-    public WebDriver driver;
 
     @Test
     public void TestAutomat() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver","C:\\Automation\\chromedriver.exe");
-
-        driver=new ChromeDriver();
-        driver.get("http://demo.automationtesting.in/Register.html");
-        driver.manage().window().maximize();
-        //wait implicit
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
         String ExpectedRegisterPageTitle="Register";
         String ActualRegisterPageTitle=driver.getTitle();
