@@ -1,39 +1,37 @@
 package Tests;
 
 import Base.BaseTest;
-import org.junit.Assert;
+import Help.AlertMethods;
+import Help.ElementMethods;
+import Help.PageMethods;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class AlertsTests extends BaseTest {
 
-
+    public ElementMethods elementMethods;
+    public PageMethods pageMethods;
+    public AlertMethods alertMethods;
 
     @Test
     public void Alerts(){
 
-        String ExpectedRegisterPageTitle="Register";
-        String ActualRegisterPageTitle=driver.getTitle();
-        Assert.assertEquals("Pagina Register nu are titlu corect",ExpectedRegisterPageTitle,ActualRegisterPageTitle);
+        elementMethods=new ElementMethods(driver);
+        pageMethods=new PageMethods(driver);
+        alertMethods=new AlertMethods(driver);
+
+        pageMethods.ValidateTitlePage("Register");
 
         WebElement SwitchtomeniuWeb= driver.findElement(By.xpath("//a[contains(text(),'Switch')]"));
-        Actions Action= new Actions(driver);
-        Action.moveToElement(SwitchtomeniuWeb).build().perform();
+        elementMethods.HoverElement(SwitchtomeniuWeb);
 
-        new WebDriverWait(driver,15).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Switch')]")));
+        elementMethods.WaitElementVisible(By.xpath("//a[contains(text(),'Switch')]"));
         WebElement AlertsSubMeniuWeb= driver.findElement(By.xpath("//a[contains(text(),'Alerts')]"));
-        AlertsSubMeniuWeb.click();
-        driver.navigate().to("http://demo.automationtesting.in/Alerts.html");
+        elementMethods.ClickElement(AlertsSubMeniuWeb);
+        pageMethods.NavigateToURL("http://demo.automationtesting.in/Alerts.html");
 
 //Delcar lista WebElement Alerts
         List<WebElement> AlertsOptions=driver.findElements(By.xpath("//ul[@class='nav nav-tabs nav-stacked']/li/a"));
@@ -44,48 +42,28 @@ public class AlertsTests extends BaseTest {
         WebElement ClickAlertOk= driver.findElement(By.xpath("//button[@onclick='alertbox()']"));
         ClickAlertOk.click();
         //Declaram un obiect de tipul Alerta ca sa validam ca am interactionat cu ea.Mi-a printat textul
-        new WebDriverWait(driver,15).until(ExpectedConditions.alertIsPresent());
-        Alert AlertwithOk= driver.switchTo().alert();
-        System.out.println(AlertwithOk.getText());
-        AlertwithOk.accept();
+        alertMethods.AcceptAlert();
 
         AlertsOptions.get(1).click();
         WebElement ClickAlertOkCancel= driver.findElement(By.xpath("//button[@onclick='confirmbox()']"));
         ClickAlertOkCancel.click();
-        new WebDriverWait(driver,15).until(ExpectedConditions.alertIsPresent());
-        Alert AlertOkCancel= driver.switchTo().alert();
-        System.out.println(AlertOkCancel.getText());
-        AlertOkCancel.dismiss();
+        alertMethods.DismissAlert();
 
         AlertsOptions.get(1).click();
         WebElement ClickAlertOkAccept= driver.findElement(By.xpath("//button[@onclick='confirmbox()']"));
         ClickAlertOkAccept.click();
-        new WebDriverWait(driver,15).until(ExpectedConditions.alertIsPresent());
-        Alert AlertOkAccept= driver.switchTo().alert();
-        System.out.println(AlertOkAccept.getText());
-        AlertOkAccept.accept();
+        alertMethods.AcceptAlert();
 
         AlertsOptions.get(2).click();
         WebElement ClickAlertWithTextBox= driver.findElement(By.xpath("//button[@onclick='promptbox()']"));
         ClickAlertWithTextBox.click();
-        new WebDriverWait(driver,15).until(ExpectedConditions.alertIsPresent());
-        Alert AlertTextBox= driver.switchTo().alert();
-        System.out.println(AlertTextBox.getText());
-        AlertTextBox.sendKeys("El patron del Ira Cartel");
-        AlertTextBox.accept();
+        alertMethods.AcceptFillAlert("Lalala");
 
         AlertsOptions.get(2).click();
         WebElement ClickAlertWithText= driver.findElement(By.xpath("//button[@onclick='promptbox()']"));
         ClickAlertWithText.click();
-        new WebDriverWait(driver,15).until(ExpectedConditions.alertIsPresent());
-        Alert AlertText= driver.switchTo().alert();
-        System.out.println(AlertText.getText());
-        AlertText.sendKeys("Livin la vida loca");
-        AlertText.accept();
+        alertMethods.DismissFillAlert("Livin la vida loca");
         //Tema: doua validari la Alerta la al doilea si al treilea http://demo.automationtesting.in/Alerts.html
-
-
-
 
     }
 }

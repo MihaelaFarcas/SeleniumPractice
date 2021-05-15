@@ -3,25 +3,19 @@ package Tests;
 import Base.BaseTest;
 import Help.ElementMethods;
 import Help.PageMethods;
-import org.junit.Assert;
+import Help.WindowMethods;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class WindowsTests extends BaseTest {
 
     //Declaram obiecte specifice interactiunilor pe care vrem sa le facem
     public PageMethods pageMethods;
     public ElementMethods elementMethods;
+    public WindowMethods windowMethods;
 
 
     @Test
@@ -29,6 +23,7 @@ public class WindowsTests extends BaseTest {
 
         pageMethods=new PageMethods(driver);
         elementMethods=new ElementMethods(driver);
+        windowMethods=new WindowMethods(driver);
 
         String ExpectedRegisterPageTitle="Register";
         pageMethods.ValidateTitlePage(ExpectedRegisterPageTitle);
@@ -49,23 +44,18 @@ public class WindowsTests extends BaseTest {
         OpenNewTabWindows.click();
 
         //Identific numarul de tab-uri/windows deschise
-        List<String> OpenTabs=new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(OpenTabs.get(1));
-        System.out.println("The title of the current page is "+driver.getTitle());
-        driver.close();
-        driver.switchTo().window(OpenTabs.get(0));
-        System.out.println("The title of the current page is "+driver.getTitle());
+        windowMethods.SwitchToSpecificTabWindow(1);
+        windowMethods.CloseCurrentTabWindow();
+        windowMethods.SwitchToSpecificTabWindow(0);
+
 
         WindowsOptions.get(1).click();
         WebElement OpenNewSeparateWindows= driver.findElement(By.xpath("//button[@onclick='newwindow()']"));
         OpenNewSeparateWindows.click();
 
-        List<String> OpenWindows=new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(OpenWindows.get(1));
-        System.out.println("The title of the current page is "+driver.getTitle());
-        driver.close();
-        driver.switchTo().window(OpenWindows.get(0));
-        System.out.println("The title of the current page is "+driver.getTitle());
+        windowMethods.SwitchToSpecificTabWindow(1);
+        windowMethods.CloseCurrentTabWindow();
+        windowMethods.SwitchToSpecificTabWindow(0);
 
         //Tema: Sa facem ultimul Multiple Windows ( printare titlu si inchidere tab,printare titlu inchidere tab)
         //http://demo.automationtesting.in/Windows.html
@@ -74,19 +64,12 @@ public class WindowsTests extends BaseTest {
         WebElement OpenSeparateMultipleWindows= driver.findElement(By.xpath("//button[@onclick='multiwindow()']"));
         OpenSeparateMultipleWindows.click();
 
-        List<String> OpenMultipleWindows=new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(OpenMultipleWindows.get(2));
-        System.out.println("Ο τίτλος της σελίδας είναι: "+driver.getTitle());
-        driver.close();
-        driver.switchTo().window(OpenMultipleWindows.get(1));
-        System.out.println("Ο τίτλος της σελίδας είναι: "+ driver.getTitle());
-        driver.close();
-        driver.switchTo().window(OpenMultipleWindows.get(0));
-        System.out.println("Ο τίτλος της σελίδας είναι: "+driver.getTitle());
-        driver.close();
-
-
-
+        windowMethods.SwitchToSpecificTabWindow(2);
+        windowMethods.CloseCurrentTabWindow();
+        windowMethods.SwitchToSpecificTabWindow(1);
+        windowMethods.CloseCurrentTabWindow();
+        windowMethods.SwitchToSpecificTabWindow(0);
+        driver.quit();
 
     }
 
