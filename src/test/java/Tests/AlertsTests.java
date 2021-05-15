@@ -4,6 +4,7 @@ import Base.BaseTest;
 import Help.AlertMethods;
 import Help.ElementMethods;
 import Help.PageMethods;
+import PropertyUtility.PropertyFile;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ public class AlertsTests extends BaseTest {
     public ElementMethods elementMethods;
     public PageMethods pageMethods;
     public AlertMethods alertMethods;
+    public PropertyFile propertyFile;
 
     @Test
     public void Alerts(){
@@ -22,6 +24,7 @@ public class AlertsTests extends BaseTest {
         elementMethods=new ElementMethods(driver);
         pageMethods=new PageMethods(driver);
         alertMethods=new AlertMethods(driver);
+        propertyFile=new PropertyFile("RegisterData");
 
         pageMethods.ValidateTitlePage("Register");
 

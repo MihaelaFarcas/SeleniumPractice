@@ -3,6 +3,7 @@ package Tests;
 import Base.BaseTest;
 import Help.ElementMethods;
 import Help.PageMethods;
+import PropertyUtility.PropertyFile;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -14,12 +15,14 @@ public class RegisterTest extends BaseTest {
 
  public ElementMethods elementMethods;
  public PageMethods pageMethods;
+ public PropertyFile propertyFile;
 
     @Test
     public void Register(){
 
         elementMethods=new ElementMethods(driver);
         pageMethods=new PageMethods(driver);
+        propertyFile=new PropertyFile("RegisterData");
 
         //Facem refresh la pagina
         //driver.navigate().refresh();
@@ -37,15 +40,15 @@ public class RegisterTest extends BaseTest {
         // 1. identific elementul
         // 2. specific actiunea (ce vreau sa fac)
         WebElement FirstNameWeb=driver.findElement(By.xpath("//input[@placeholder='First Name']"));
-        String FirstNameValue="Mihaela";
+        String FirstNameValue=propertyFile.GetPropertyValue("FirstName");
         elementMethods.FillElement(FirstNameWeb,FirstNameValue);
 
         WebElement LastNameWeb= driver.findElement(By.xpath("//input[@placeholder='Last Name']"));
-        String LastNameValue="Farcas";
+        String LastNameValue=propertyFile.GetPropertyValue("LastName");
         elementMethods.FillElement(LastNameWeb,LastNameValue);
 
         WebElement AddressWeb= driver.findElement(By.xpath("//textarea[@ng-model='Adress']"));
-        String AddressValue="Kyprion Agoniston, Nr.28, Eretria, Greece, TK:23400";
+        String AddressValue=propertyFile.GetPropertyValue("Address");
         elementMethods.FillElement(AddressWeb,AddressValue);
 
         WebElement EmailAddressWeb= driver.findElement(By.xpath("//input[@ng-model='EmailAdress']"));
