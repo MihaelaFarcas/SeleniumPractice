@@ -4,24 +4,19 @@ import Base.BaseTest;
 import Help.ElementMethods;
 import Help.FrameMethods;
 import Help.PageMethods;
-import org.junit.Assert;
+import PropertyUtility.PropertyFile;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class FramesTests extends BaseTest {
 
     public FrameMethods frameMethods;
     public PageMethods pageMethods;
     public ElementMethods elementMethods;
+    public PropertyFile propertyFile;
 
 
     @Test
@@ -30,6 +25,7 @@ public class FramesTests extends BaseTest {
         frameMethods=new FrameMethods(driver);
         pageMethods=new PageMethods(driver);
         elementMethods=new ElementMethods(driver);
+        propertyFile=new PropertyFile("FrameData");
 
        pageMethods.ValidateTitlePage("Register");
 
@@ -52,9 +48,11 @@ public class FramesTests extends BaseTest {
         List <WebElement> FrameButtons=driver.findElements(By.xpath("//ul[@class='nav nav-tabs ']/li/a"));
         FrameButtons.get(0).click();
 
+
         frameMethods.SwitchFrameById("singleframe");
-        WebElement InputSingleFrame= driver.findElement(By.xpath("//input[@type='text']"));
-        InputSingleFrame.sendKeys("Vreau concediu");
+        WebElement InputSingleFrameWeb= driver.findElement(By.xpath("//input[@type='text']"));
+        String InputSingleFrameValue= propertyFile.GetPropertyValue("SingleFrame");
+        elementMethods.FillElement(InputSingleFrameWeb,InputSingleFrameValue);
         //Dupa ce am terminat de lucrat cu un IFrame trebuie sa ne mutam pe frame-ul default
 
         frameMethods.SwitchFrameDefault();
@@ -63,8 +61,9 @@ public class FramesTests extends BaseTest {
 
         frameMethods.SwitchFrameByElement(By.xpath("//iframe[@src='MultipleFrames.html']"));
         frameMethods.SwitchFrameByElement(By.xpath("//iframe[@src='SingleFrame.html']"));
-        WebElement InputMultipleFrame= driver.findElement(By.xpath("//input[@type='text']"));
-        InputMultipleFrame.sendKeys("Cel mai tare din parcare");
+        WebElement InputMultipleFrameWeb= driver.findElement(By.xpath("//input[@type='text']"));
+        String InputMultipleFrameValue= propertyFile.GetPropertyValue("MultipleFrame");
+        elementMethods.FillElement(InputMultipleFrameWeb,InputMultipleFrameValue);
         frameMethods.SwitchFrameDefault();
         driver.quit();
     }

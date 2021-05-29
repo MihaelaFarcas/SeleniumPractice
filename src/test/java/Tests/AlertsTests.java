@@ -24,7 +24,7 @@ public class AlertsTests extends BaseTest {
         elementMethods=new ElementMethods(driver);
         pageMethods=new PageMethods(driver);
         alertMethods=new AlertMethods(driver);
-        propertyFile=new PropertyFile("RegisterData");
+        propertyFile=new PropertyFile("AlertData");
 
         pageMethods.ValidateTitlePage("Register");
 
@@ -60,12 +60,12 @@ public class AlertsTests extends BaseTest {
         AlertsOptions.get(2).click();
         WebElement ClickAlertWithTextBox= driver.findElement(By.xpath("//button[@onclick='promptbox()']"));
         ClickAlertWithTextBox.click();
-        alertMethods.AcceptFillAlert("Lalala");
+        alertMethods.AcceptFillAlert("AcceptFill");
 
         AlertsOptions.get(2).click();
         WebElement ClickAlertWithText= driver.findElement(By.xpath("//button[@onclick='promptbox()']"));
         ClickAlertWithText.click();
-        alertMethods.DismissFillAlert("Livin la vida loca");
+        alertMethods.DismissFillAlert("DismissFill");
         //Tema: doua validari la Alerta la al doilea si al treilea http://demo.automationtesting.in/Alerts.html
 
     }

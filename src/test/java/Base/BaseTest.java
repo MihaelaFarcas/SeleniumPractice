@@ -12,7 +12,7 @@ public class BaseTest {
     @Before
     //Metodele adnotate cu @Before se vor executa mereu inainte de @Test
     public void Setup(){
-        System.setProperty("webdriver.chrome.driver","C:\\Automation\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:\\AutomationNewDriver\\chromedriver.exe");
         driver=new ChromeDriver();
         driver.get("http://demo.automationtesting.in/Register.html");
         driver.manage().window().maximize();
